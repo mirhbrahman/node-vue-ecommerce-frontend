@@ -1,18 +1,39 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <app-layout>
+    <div class="home" slot="content">
+      <div class="row">
+        <div class="col-md-3">
+          <product-category></product-category>
+        </div>
+        <div class="col-md-9">
+          <home-slider></home-slider>
+          <recent-product></recent-product>
+        </div>
+      </div>
+    </div>
+  </app-layout>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import AppLayout from "@/components/layouts/AppLayout.vue";
+import ProductCategory from "@/components/ProductCategory.vue";
+import HomeSlider from "@/components/home/HomeSlider.vue";
+import RecentProduct from "@/components/home/RecentProduct.vue";
 export default {
   name: "home",
   components: {
-    HelloWorld
+    AppLayout,
+    ProductCategory,
+    HomeSlider,
+    RecentProduct
   }
 };
 </script>
+
+<style>
+.old-price {
+  color: gray;
+  text-decoration: line-through;
+}
+</style>

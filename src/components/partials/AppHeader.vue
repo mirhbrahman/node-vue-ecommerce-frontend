@@ -1,7 +1,9 @@
 <template>
   <b-navbar toggleable="lg" type="dark" variant="info">
     <b-container>
-      <b-navbar-brand href="#">AlphaEcom</b-navbar-brand>
+      <b-navbar-brand>
+        <router-link class="navbar-brand" to="/">AlphaEcom</router-link>
+      </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 

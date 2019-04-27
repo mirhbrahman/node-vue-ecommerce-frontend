@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-list-group>
+      <b-list-group-item variant="info">All Categories</b-list-group-item>
       <b-list-group-item v-for="(category, index) in categories" :key="index">
         <div>
           <p v-b-toggle="`${category._id}`" class="mb-0" variant="outline-info">

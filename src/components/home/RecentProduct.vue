@@ -3,20 +3,31 @@
     <h5 class="text-info">Recent Products</h5>
     <hr />
     <div class="row">
-      <div v-for="(item, index) in items" :key="index" class="col-md-4">
+      <div v-for="product in products" :key="product._id" class="col-md-4">
         <b-card
           title=""
-          img-src="https://picsum.photos/600/400/?image=25"
+          :img-src="product.thumb.url"
           img-alt="Image"
           img-top
           tag="article"
           style="max-width: 20rem;"
           class="mb-2"
         >
-          <h5 class="text-info">Product Title</h5>
-          <p class="mb-0">
-            <span class="old-price">$24.99</span> |
-            <span class="text-info">$22.99</span>
+          <h5 class="text-info">
+            <router-link
+              class="text-info product-link"
+              :to="{ name: 'singleProduct', params: { slug: product.slug } }"
+              >{{ product.name }}</router-link
+            >
+          </h5>
+          <p v-if="product.isFlashSale" class="mb-0">
+            <span class="old-price">${{ product.price | price }}</span> |
+            <span class="text-info"
+              >${{ product.flashSale.flashPrice | price }}</span
+            >
+          </p>
+          <p v-else class="mb-0">
+            <span class="text-info">${{ product.price | price }}</span>
           </p>
           <b-card-text> </b-card-text>
         </b-card>
@@ -26,13 +37,30 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  data() {
-    return {
-      items: [1, 2, 3, 4, 5, 6]
-    };
+  created() {
+    // Dispatch action to get recent products
+    this.$store.dispatch("products/getRecentProducts");
+  },
+  computed: {
+    ...mapGetters({
+      products: "products/getRecentProducts"
+    })
+  },
+  filters: {
+    price: function(value) {
+      return Number(value).toFixed(2);
+    }
   }
 };
 </script>
 
-<style></style>
+<style>
+.card-img-top {
+  height: 150px;
+}
+.product-link:hover {
+  text-decoration: none;
+}
+</style>

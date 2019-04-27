@@ -4,12 +4,9 @@
       <b-list-group-item variant="info">All Categories</b-list-group-item>
       <b-list-group-item v-for="(category, index) in categories" :key="index">
         <div>
-          <p
-            class="mb-0"
-            variant="outline-info"
-            @click="onCategoryClick(category)"
-          >
-            {{ category.name }}
+          <p class="mb-0" variant="outline-info">
+            <span @click="onCategoryClick(category)">{{ category.name }}</span>
+
             <i
               v-b-toggle="`${category._id}`"
               v-if="subCategories(category._id)"

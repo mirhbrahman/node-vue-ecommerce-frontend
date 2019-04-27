@@ -1,6 +1,7 @@
 <template>
   <app-layout>
     <div slot="content">
+      <pre-loader></pre-loader>
       <div class="row">
         <div class="col-md-3">
           <product-category></product-category>
@@ -30,12 +31,14 @@
 <script>
 import { mapGetters } from "vuex";
 import AppLayout from "@/components/layouts/AppLayout.vue";
+import PreLoader from "@/components/partials/PreLoader.vue";
 import ProductCategory from "@/components/ProductCategory.vue";
 import ProductItem from "@/components/partials/ProductItem.vue";
 export default {
   props: ["slug"],
   components: {
     AppLayout,
+    PreLoader,
     ProductCategory,
     ProductItem
   },

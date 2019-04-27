@@ -15,6 +15,8 @@ const getters = {
 // Actions
 const actions = {
   getCategories({ commit }) {
+    // Activate loader
+    store.dispatch("loader/activeLoader");
     // Make server request
     Vue.axios
       .get("/product/categories")
@@ -36,6 +38,8 @@ const actions = {
 const mutations = {
   setCategories(state, categories) {
     state.categories = categories;
+    // Deactivate loader
+    store.dispatch("loader/deactiveLoader");
   }
 };
 

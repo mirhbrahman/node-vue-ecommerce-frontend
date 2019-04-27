@@ -34,6 +34,8 @@ const actions = {
       });
   },
   getProductByCategory({ commit }, catSlug) {
+    // Activate loader
+    store.dispatch("loader/activeLoader");
     // Make server request
     Vue.axios
       .get(`product/categories/${catSlug}/products`)
@@ -46,6 +48,8 @@ const actions = {
         } else {
           // Clear state
           commit("clearProduct");
+          // Deactivate loader
+          store.dispatch("loader/deactiveLoader");
         }
       })
       .catch(err => {
@@ -53,9 +57,13 @@ const actions = {
         store.dispatch("error/setErrors", err.response.data);
         // Clear state
         commit("clearProduct");
+        // Deactivate loader
+        store.dispatch("loader/deactiveLoader");
       });
   },
   getProductBySubCategory({ commit }, subCatSlug) {
+    // Activate loader
+    store.dispatch("loader/activeLoader");
     // Make server request
     Vue.axios
       .get(`product/sub-categories/${subCatSlug}/products`)
@@ -68,6 +76,8 @@ const actions = {
         } else {
           // Clear state
           commit("clearProduct");
+          // Deactivate loader
+          store.dispatch("loader/deactiveLoader");
         }
       })
       .catch(err => {
@@ -75,6 +85,8 @@ const actions = {
         store.dispatch("error/setErrors", err.response.data);
         // Clear state
         commit("clearProduct");
+        // Deactivate loader
+        store.dispatch("loader/deactiveLoader");
       });
   }
 };
@@ -82,9 +94,13 @@ const actions = {
 const mutations = {
   setRecentProducts(state, products) {
     state.products = products;
+    // Deactivate loader
+    store.dispatch("loader/deactiveLoader");
   },
   setProducts(state, products) {
     state.products = products;
+    // Deactivate loader
+    store.dispatch("loader/deactiveLoader");
   },
   clearProduct(state) {
     state.products = {};

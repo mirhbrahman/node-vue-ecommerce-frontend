@@ -11,7 +11,13 @@ export default {
 </script>
 
 <style>
-body{
-  background: #F5F5F5;
+body {
+  background: #f5f5f5;
+}
+.product-link:hover {
+  text-decoration: none;
+}
+.category-text {
+  color: gray;
 }
 </style>

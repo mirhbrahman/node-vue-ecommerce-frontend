@@ -2,6 +2,8 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 import SingleProduct from "./views/SingleProduct.vue";
+import ProductByCategory from "./views/ProductByCategory.vue";
+import ProductBySubCategory from "./views/ProductBySubCategory.vue";
 
 Vue.use(Router);
 
@@ -13,6 +15,18 @@ const router = new Router({
       path: "/",
       name: "home",
       component: Home
+    },
+    {
+      path: "/categories/:slug",
+      props: true,
+      name: "productByCategory",
+      component: ProductByCategory
+    },
+    {
+      path: "/sub-categories/:slug",
+      props: true,
+      name: "productBySubCategory",
+      component: ProductBySubCategory
     },
     {
       path: "/products/:slug",

@@ -4,9 +4,14 @@
       <b-list-group-item variant="info">All Categories</b-list-group-item>
       <b-list-group-item v-for="(category, index) in categories" :key="index">
         <div>
-          <p v-b-toggle="`${category._id}`" class="mb-0" variant="outline-info">
+          <p
+            class="mb-0"
+            variant="outline-info"
+            @click="onCategoryClick(category)"
+          >
             {{ category.name }}
             <i
+              v-b-toggle="`${category._id}`"
               v-if="subCategories(category._id)"
               class="fas fa-angle-down fr"
             ></i>
@@ -14,8 +19,10 @@
           <b-collapse :id="`${category._id}`" class="mt-2">
             <b-list-group>
               <b-list-group-item
+                class="sub-cat"
                 v-for="subCat in subCategories(category._id)"
                 :key="subCat._id"
+                @click="onSubCategoryClick(subCat)"
                 >{{ subCat.name }}</b-list-group-item
               >
             </b-list-group>
@@ -28,7 +35,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-
+import router from "../router";
 export default {
   created() {
     // Dispatch action to get all categories
@@ -49,6 +56,23 @@ export default {
         subCat => subCat.category === catId
       );
       return subCat.length > 0 ? subCat : false;
+    },
+    onCategoryClick(category) {
+      this.$store.dispatch("products/getProductByCategory", category.slug);
+      router.push({
+        name: "productByCategory",
+        params: { slug: category.slug }
+      });
+    },
+    onSubCategoryClick(subCategory) {
+      this.$store.dispatch(
+        "products/getProductBySubCategory",
+        subCategory.slug
+      );
+      router.push({
+        name: "productBySubCategory",
+        params: { slug: subCategory.slug }
+      });
     }
   }
 };
@@ -56,6 +80,9 @@ export default {
 
 <style>
 p:hover {
+  cursor: pointer;
+}
+.sub-cat:hover {
   cursor: pointer;
 }
 .fr {

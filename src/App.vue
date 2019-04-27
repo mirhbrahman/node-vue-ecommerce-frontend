@@ -5,13 +5,13 @@
 </template>
 
 <script>
-import AppHeader from "@/components/partials/AppHeader.vue";
-
 export default {
-  components: {
-    AppHeader
-  }
+  components: {}
 };
 </script>
 
-<style></style>
+<style>
+body{
+  background: #F5F5F5;
+}
+</style>

@@ -3,7 +3,7 @@
     <h5 class="text-info">Recent Products</h5>
     <hr />
     <div class="row">
-      <div v-for="item in items" :key="{ item }" class="col-md-4">
+      <div v-for="(item, index) in items" :key="index" class="col-md-4">
         <b-card
           title=""
           img-src="https://picsum.photos/600/400/?image=25"

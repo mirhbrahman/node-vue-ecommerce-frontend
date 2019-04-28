@@ -3,12 +3,16 @@ import Vue from "vue";
 
 // Initial state
 const state = {
-  products: {}
+  products: {},
+  product: {}
 };
 // Getters
 const getters = {
   getProducts(state) {
     return state.products;
+  },
+  getProduct(state) {
+    return state.product;
   }
 };
 // Actions
@@ -26,6 +30,23 @@ const actions = {
         } else {
           // Clear state
           commit("clearProduct");
+        }
+      })
+      .catch(err => {
+        // Set all errors to state
+        store.dispatch("error/setErrors", err.response.data);
+      });
+  },
+  getProduct({ commit }, slug) {
+    // Make server request
+    Vue.axios
+      .get(`/product/products/${slug}`)
+      .then(res => {
+        if (res.data.success) {
+          // Store data to state
+          commit("setProduct", res.data.product[0]);
+          // Clear all errors
+          store.dispatch("error/clearErrors");
         }
       })
       .catch(err => {
@@ -96,6 +117,9 @@ const mutations = {
     state.products = products;
     // Deactivate loader
     store.dispatch("loader/deactiveLoader");
+  },
+  setProduct(state, product) {
+    state.product = product;
   },
   setProducts(state, products) {
     state.products = products;

@@ -12,7 +12,7 @@ export default {
 
 <style>
 body {
-  background: #f5f5f5;
+  background: #f5f5f5 !important;
 }
 .product-link:hover {
   text-decoration: none;

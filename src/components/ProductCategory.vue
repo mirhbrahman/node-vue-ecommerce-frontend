@@ -5,7 +5,9 @@
       <b-list-group-item v-for="(category, index) in categories" :key="index">
         <div>
           <p class="mb-0" variant="outline-info">
-            <span @click="onCategoryClick(category)">{{ category.name }}</span>
+            <span @click="onCategoryClick(category)">{{
+              category.name | ucfirst
+            }}</span>
 
             <i
               v-b-toggle="`${category._id}`"
@@ -20,7 +22,7 @@
                 v-for="subCat in subCategories(category._id)"
                 :key="subCat._id"
                 @click="onSubCategoryClick(subCat)"
-                >{{ subCat.name }}</b-list-group-item
+                >{{ subCat.name | ucfirst }}</b-list-group-item
               >
             </b-list-group>
           </b-collapse>
@@ -32,6 +34,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { ucfirst } from "../utils/helpers";
 import router from "../router";
 export default {
   created() {
@@ -70,6 +73,11 @@ export default {
         name: "productBySubCategory",
         params: { slug: subCategory.slug }
       });
+    }
+  },
+  filters: {
+    ucfirst: function(value) {
+      return ucfirst(value);
     }
   }
 };

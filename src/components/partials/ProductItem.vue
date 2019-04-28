@@ -12,7 +12,7 @@
       <router-link
         class="text-info product-link"
         :to="{ name: 'singleProduct', params: { slug: product.slug } }"
-        >{{ product.name }}</router-link
+        >{{ product.name | ucfirst }}</router-link
       >
     </h5>
     <small class="">
@@ -22,7 +22,7 @@
           name: 'productByCategory',
           params: { slug: product.category.slug }
         }"
-        >{{ product.category.name }}</router-link
+        >{{ product.category.name | ucfirst }}</router-link
       >
     </small>
     <p v-if="product.isFlashSale" class="mb-0">
@@ -37,11 +37,15 @@
 </template>
 
 <script>
+import { ucfirst } from "../../utils/helpers";
 export default {
   props: ["product"],
   filters: {
     price: function(value) {
       return Number(value).toFixed(2);
+    },
+    ucfirst: function(value) {
+      return ucfirst(value);
     }
   }
 };

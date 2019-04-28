@@ -22,17 +22,16 @@
                   >
                     <!-- Text slides with image -->
                     <b-carousel-slide
-                      img-src="https://picsum.photos/500/500/?image=52"
-                    ></b-carousel-slide>
-                    <b-carousel-slide
-                      img-src="https://picsum.photos/500/500/?image=52"
+                      v-for="(image, index) in product.images"
+                      :key="index"
+                      :img-src="image.url"
                     ></b-carousel-slide>
                   </b-carousel>
                 </div>
               </div>
               <div class="col-md-7">
                 <h5 class="text-info">
-                  {{ product.name }}
+                  {{ product.name | ucfirst }}
                 </h5>
                 <p class="text-muted mb-0">
                   <b-badge variant="info">SKU</b-badge> {{ product.sku }}
@@ -42,7 +41,7 @@
                   <small>
                     <span class="text-muted">Brand: </span>
                     <span class="text-info">{{
-                      product.manufacturer.name
+                      product.manufacturer.name | ucfirst
                     }}</span>
                     <span class="text-muted"> | </span>
                     <span class="text-muted">Model: </span>
@@ -51,10 +50,12 @@
                 </div>
                 <div class="mb-2">
                   <small>
-                    <span class="text-info">{{ product.category.name }}</span>
+                    <span class="text-info">{{
+                      product.category.name | ucfirst
+                    }}</span>
                     <span class="text-muted"> | </span>
                     <span class="text-info">{{
-                      product.subCategory.name
+                      product.subCategory.name | ucfirst
                     }}</span>
                   </small>
                 </div>
@@ -133,6 +134,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { ucfirst } from "../utils/helpers";
 // @ is an alias to /src
 import AppLayout from "@/components/layouts/AppLayout.vue";
 import ProductCategory from "@/components/ProductCategory.vue";
@@ -165,6 +167,9 @@ export default {
   filters: {
     price: function(value) {
       return Number(value).toFixed(2);
+    },
+    ucfirst: function(value) {
+      return ucfirst(value);
     }
   }
 };

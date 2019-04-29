@@ -21,10 +21,12 @@
             >
           </b-nav-form>
           <b-nav-item href="#" right>
-            <b-badge variant="light"
-              ><i class="fas fa-cart-plus"></i> {{totalCartItem}}</b-badge
-            ></b-nav-item
-          >
+            <router-link to="/cart"
+              ><b-badge variant="light"
+                ><i class="fas fa-cart-plus"></i> {{ totalCartItem }}</b-badge
+              ></router-link
+            >
+          </b-nav-item>
           <b-nav-item href="#" right>Sign In</b-nav-item>
           <b-nav-item href="#" right>Signup</b-nav-item>
         </b-navbar-nav>
@@ -34,11 +36,11 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      totalCartItem: 'cart/cartItemCount'
+      totalCartItem: "cart/cartItemCount"
     })
   }
 };

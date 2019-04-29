@@ -184,10 +184,12 @@ export default {
     },
     addToCart() {
       const product = {
+        quantity: 1,
+        productId: this.product._id,
         product: this.product,
         attributes: this.selectedAttr
       };
-      this.$store.dispatch('cart/addItem', product);
+      this.$store.dispatch("cart/addItem", product);
     }
   },
   filters: {

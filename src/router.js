@@ -4,6 +4,7 @@ import Home from "./views/Home.vue";
 import SingleProduct from "./views/SingleProduct.vue";
 import ProductByCategory from "./views/ProductByCategory.vue";
 import ProductBySubCategory from "./views/ProductBySubCategory.vue";
+import Cart from "./views/Cart.vue";
 
 Vue.use(Router);
 
@@ -33,6 +34,12 @@ const router = new Router({
       props: true,
       name: "singleProduct",
       component: SingleProduct
+    },
+    {
+      path: "/cart",
+      props: true,
+      name: "cartItem",
+      component: Cart
     },
     {
       path: "/about",

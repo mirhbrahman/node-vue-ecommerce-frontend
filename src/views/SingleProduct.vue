@@ -89,12 +89,13 @@
                       <b-form-group>
                         <b-form-radio-group
                           id="radio-slots"
+                          :name="`${attr.optionGroupName}`"
                           @change="selectAttr"
                         >
                           <b-form-radio
                             v-for="(option, index) in attr.options"
                             :key="index"
-                            value="1"
+                            :value="`${JSON.stringify(option)}`"
                             >{{ option.name }}</b-form-radio
                           >
                         </b-form-radio-group>
@@ -104,7 +105,9 @@
                 </div>
                 <hr />
                 <div>
-                  <b-button variant="info">Add to Cart</b-button>
+                  <b-button variant="info" @click="addToCart"
+                    >Add to Cart</b-button
+                  >
                 </div>
               </div>
             </div>
@@ -119,11 +122,16 @@
             <h5>Description</h5>
             <hr />
             <p class="text-muted">
-              Rated capacity - 3.75V/5000mAh (TYP) Battery type - Lithium-ion
-              Polymer rechargeable cell Size - 125 x 69 x 9.9mm Charging time -
-              3.5 hrs with 5V/2A plug and standard cable Load detection -
-              Auto-detects device plug-in/plug-out Input Voltage - DC 5.0V
-              Output Voltage - DC 5.1V
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book. It has
+              survived not only five centuries, but also the leap into
+              electronic typesetting, remaining essentially unchanged. It was
+              popularised in the 1960s with the release of Letraset sheets
+              containing Lorem Ipsum passages, and more recently with desktop
+              publishing software like Aldus PageMaker including versions of
+              Lorem Ipsum.
             </p>
           </b-card>
         </div>
@@ -147,7 +155,7 @@ export default {
   },
   data() {
     return {
-      selected: ""
+      selectedAttr: []
     };
   },
   created() {
@@ -160,8 +168,26 @@ export default {
     })
   },
   methods: {
-    selectAttr(item) {
-      console.log(item);
+    selectAttr(attr) {
+      const attrObj = JSON.parse(attr);
+      // Check option already selected or not
+      let index = this.selectedAttr
+        .map(item => item.optionGroup)
+        .indexOf(attrObj.optionGroup);
+
+      // If not selected inserted data
+      if (index < 0) {
+        this.selectedAttr.push(attrObj);
+      } else {
+        this.selectedAttr[index] = attrObj;
+      }
+    },
+    addToCart() {
+      const product = {
+        product: this.product,
+        attributes: this.selectedAttr
+      };
+      this.$store.dispatch('cart/addItem', product);
     }
   },
   filters: {

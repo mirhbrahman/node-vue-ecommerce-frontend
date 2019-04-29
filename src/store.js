@@ -5,6 +5,7 @@ import loader from "./store/utils/loader";
 import categories from "./store/category";
 import subCategories from "./store/subCategory";
 import products from "./store/product";
+import cart from "./store/cart";
 
 Vue.use(Vuex);
 
@@ -14,7 +15,8 @@ export default new Vuex.Store({
     error,
     categories,
     subCategories,
-    products
+    products,
+    cart
   },
   state: {},
   mutations: {},

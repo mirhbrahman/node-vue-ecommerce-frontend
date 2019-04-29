@@ -22,7 +22,7 @@
           </b-nav-form>
           <b-nav-item href="#" right>
             <b-badge variant="light"
-              ><i class="fas fa-cart-plus"></i> 4</b-badge
+              ><i class="fas fa-cart-plus"></i> {{totalCartItem}}</b-badge
             ></b-nav-item
           >
           <b-nav-item href="#" right>Sign In</b-nav-item>
@@ -34,7 +34,14 @@
 </template>
 
 <script>
-export default {};
+import {mapGetters} from 'vuex';
+export default {
+  computed: {
+    ...mapGetters({
+      totalCartItem: 'cart/cartItemCount'
+    })
+  }
+};
 </script>
 <style>
 .navbar-dark .navbar-nav .nav-link {

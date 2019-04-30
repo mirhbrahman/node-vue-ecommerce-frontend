@@ -5,6 +5,7 @@ import SingleProduct from "./views/SingleProduct.vue";
 import ProductByCategory from "./views/ProductByCategory.vue";
 import ProductBySubCategory from "./views/ProductBySubCategory.vue";
 import Cart from "./views/Cart.vue";
+import Checkout from "./views/Checkout.vue";
 
 Vue.use(Router);
 
@@ -37,9 +38,13 @@ const router = new Router({
     },
     {
       path: "/cart",
-      props: true,
       name: "cartItem",
       component: Cart
+    },
+    {
+      path: "/checkout",
+      name: "checkout",
+      component: Checkout
     },
     {
       path: "/about",

@@ -46,7 +46,10 @@
                     ${{ subTotal(item) }}
                   </td>
                   <td class="actions" data-th="">
-                    <button class="btn btn-danger btn-sm">
+                    <button
+                      @click="deleteItem(item.productId)"
+                      class="btn btn-danger btn-sm"
+                    >
                       <i class="fa fa-trash"></i>
                     </button>
                   </td>
@@ -55,8 +58,9 @@
               <tfoot>
                 <tr>
                   <td>
-                    <a href="#" class="btn btn-warning"
-                      ><i class="fa fa-angle-left"></i> Continue Shopping</a
+                    <router-link class="btn btn-warning" to="/"
+                      ><i class="fa fa-angle-left"></i> Continue
+                      Shopping</router-link
                     >
                   </td>
                   <td colspan="2" class="hidden-xs"></td>
@@ -64,7 +68,9 @@
                     <strong>Total ${{ totalPrice }}</strong>
                   </td>
                   <td>
-                    <a href="#" class="btn btn-info btn-block">Checkout </a>
+                    <router-link to="/checkout" class="btn btn-info btn-block"
+                      >Checkout</router-link
+                    >
                   </td>
                 </tr>
               </tfoot>
@@ -81,13 +87,11 @@ import { mapGetters } from "vuex";
 import { ucfirst } from "../utils/helpers";
 // @ is an alias to /src
 import AppLayout from "@/components/layouts/AppLayout.vue";
-import PreLoader from "@/components/partials/PreLoader.vue";
 import ProductCategory from "@/components/ProductCategory.vue";
 export default {
   name: "home",
   components: {
     AppLayout,
-    PreLoader,
     ProductCategory
   },
   computed: {
@@ -123,6 +127,9 @@ export default {
         productId: productId
       };
       this.$store.dispatch("cart/changeQuantity", payload);
+    },
+    deleteItem(productId) {
+      this.$store.dispatch("cart/deleteItem", productId);
     }
   },
   filters: {

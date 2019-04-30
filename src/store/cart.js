@@ -1,6 +1,3 @@
-// import Vue from "vue";
-// import store from "../store";
-
 // Initial state
 const state = {
   items: []
@@ -22,12 +19,21 @@ const actions = {
   },
   changeQuantity({ commit }, payload) {
     commit("changeQuantity", payload);
+  },
+  deleteItem({ commit }, productId) {
+    commit("deleteItem", productId);
   }
 };
 // Mutations
 const mutations = {
   addItem(state, payload) {
-    state.items.push(payload);
+    // Check already this item contain in cart or not
+    const contain = state.items.filter(
+      item => item.productId === payload.productId
+    );
+    if (contain.length < 1) {
+      state.items.push(payload);
+    }
   },
   changeQuantity(state, payload) {
     state.items.map(item => {
@@ -35,6 +41,9 @@ const mutations = {
         item.quantity = payload.quantity;
       }
     });
+  },
+  deleteItem(state, productId) {
+    state.items = state.items.filter(item => item.productId !== productId);
   }
 };
 

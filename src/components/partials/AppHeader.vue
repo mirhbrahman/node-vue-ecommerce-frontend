@@ -27,8 +27,8 @@
               ></router-link
             >
           </b-nav-item>
-          <b-nav-item href="#" right>Sign In</b-nav-item>
-          <b-nav-item href="#" right>Signup</b-nav-item>
+          <router-link class="nav-link" to="/login">Sign In</router-link>
+          <router-link class="nav-link" to="/register">Signup</router-link>
         </b-navbar-nav>
       </b-collapse>
     </b-container>

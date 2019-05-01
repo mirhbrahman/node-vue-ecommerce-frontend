@@ -27,8 +27,14 @@
               ></router-link
             >
           </b-nav-item>
-          <router-link class="nav-link" to="/login">Sign In</router-link>
-          <router-link class="nav-link" to="/register">Signup</router-link>
+
+          <router-link v-if="!isLoggedIn" class="nav-link" to="/login"
+            >Sign In</router-link
+          >
+          <router-link v-if="!isLoggedIn" class="nav-link" to="/register"
+            >Signup</router-link
+          >
+          <b-nav-item v-else href="#" right @click="logout">Logout</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-container>
@@ -40,8 +46,14 @@ import { mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      totalCartItem: "cart/cartItemCount"
+      totalCartItem: "cart/cartItemCount",
+      isLoggedIn: "auth/isLoggedIn"
     })
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("auth/logout");
+    }
   }
 };
 </script>

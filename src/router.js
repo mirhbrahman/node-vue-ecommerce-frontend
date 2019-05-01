@@ -56,7 +56,10 @@ const router = new Router({
     {
       path: "/checkout",
       name: "checkout",
-      component: Checkout
+      component: Checkout,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/about",

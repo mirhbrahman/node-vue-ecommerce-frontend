@@ -10,46 +10,59 @@
                   <h5 class="card-title text-center">Register</h5>
                   <form class="form-signin">
                     <div class="form-label-group">
-                      <div class="form-label-group">
-                        <input
-                          type="email"
-                          id="inputEmail"
-                          class="form-control"
-                          placeholder="Name"
-                          required
-                          autofocus
-                        />
-                      </div>
+                      <input
+                        type="text"
+                        v-model="name"
+                        class="form-control"
+                        placeholder="Name"
+                        required
+                        autofocus
+                      />
+                      <small v-if="isError" class="text-danger">{{
+                        errors.name
+                      }}</small>
+                    </div>
+                    <div class="form-label-group">
                       <input
                         type="email"
-                        id="inputEmail"
+                        v-model="email"
                         class="form-control"
                         placeholder="Email"
                         required
                       />
+                      <small v-if="isError" class="text-danger">{{
+                        errors.email
+                      }}</small>
                     </div>
 
                     <div class="form-label-group">
                       <input
                         type="password"
-                        id="inputPassword"
+                        v-model="password"
                         class="form-control"
                         placeholder="Password"
                         required
                       />
+                      <small v-if="isError" class="text-danger">{{
+                        errors.password
+                      }}</small>
                     </div>
                     <div class="form-label-group">
                       <input
                         type="password"
-                        id="inputPassword"
+                        v-model="password_confirmation"
                         class="form-control"
                         placeholder="Confirm Password"
                         required
                       />
+                      <small v-if="isError" class="text-danger">{{
+                        errors.password_confirmation
+                      }}</small>
                     </div>
 
                     <button
-                      class="btn btn-lg btn-primary btn-block text-uppercase"
+                      @click="register"
+                      class="btn btn-lg btn-info btn-block text-uppercase"
                       type="submit"
                     >
                       Register
@@ -80,12 +93,41 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 // @ is an alias to /src
 import AppLayout from "@/components/layouts/AppLayout.vue";
 export default {
-  name: "home",
   components: {
     AppLayout
+  },
+  data() {
+    return {
+      name: "",
+      email: "",
+      password: "",
+      password_confirmation: ""
+    };
+  },
+  computed: {
+    ...mapGetters({
+      isError: "error/isError",
+      errors: "error/getErrors"
+    })
+  },
+  methods: {
+    register(e) {
+      e.preventDefault();
+
+      const payload = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        password_confirmation: this.password_confirmation
+      };
+
+      // Dispatch action to register customer
+      this.$store.dispatch("auth/register", payload);
+    }
   }
 };
 </script>

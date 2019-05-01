@@ -12,22 +12,27 @@
                     <div class="form-label-group">
                       <input
                         type="email"
-                        id="inputEmail"
+                        v-model="email"
                         class="form-control"
-                        placeholder="Email address"
+                        placeholder="Email"
                         required
-                        autofocus
                       />
+                      <small v-if="isError" class="text-danger">{{
+                        errors.email
+                      }}</small>
                     </div>
 
                     <div class="form-label-group">
                       <input
                         type="password"
-                        id="inputPassword"
+                        v-model="password"
                         class="form-control"
                         placeholder="Password"
                         required
                       />
+                      <small v-if="isError" class="text-danger">{{
+                        errors.password
+                      }}</small>
                     </div>
 
                     <div class="custom-control custom-checkbox mb-3">
@@ -43,7 +48,8 @@
                       >
                     </div>
                     <button
-                      class="btn btn-lg btn-primary btn-block text-uppercase"
+                      @click="login"
+                      class="btn btn-lg btn-info btn-block text-uppercase"
                       type="submit"
                     >
                       Sign in
@@ -74,12 +80,37 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 // @ is an alias to /src
 import AppLayout from "@/components/layouts/AppLayout.vue";
 export default {
-  name: "home",
   components: {
     AppLayout
+  },
+  data() {
+    return {
+      email: "",
+      password: ""
+    };
+  },
+  computed: {
+    ...mapGetters({
+      isError: "error/isError",
+      errors: "error/getErrors"
+    })
+  },
+  methods: {
+    login(e) {
+      e.preventDefault();
+
+      const payload = {
+        email: this.email,
+        password: this.password
+      };
+
+      // Dispatch action to login customer
+      this.$store.dispatch("auth/login", payload);
+    }
   }
 };
 </script>

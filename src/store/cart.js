@@ -22,6 +22,9 @@ const actions = {
   },
   deleteItem({ commit }, productId) {
     commit("deleteItem", productId);
+  },
+  clearCart({ commit }) {
+    commit("clearCart");
   }
 };
 // Mutations
@@ -44,6 +47,9 @@ const mutations = {
   },
   deleteItem(state, productId) {
     state.items = state.items.filter(item => item.productId !== productId);
+  },
+  clearCart(state) {
+    state.items = [];
   }
 };
 

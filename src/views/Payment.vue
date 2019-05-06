@@ -60,8 +60,8 @@
                               data-toggle="tooltip"
                               title=""
                               data-original-title="3 digits code on back side of the card"
-                              >CVC</i
-                            ></label>
+                              >CVC</label
+                            >
                             <input
                               type="number"
                               class="form-control"
@@ -108,9 +108,10 @@ export default {
   data() {
     return {
       cardNumber: "",
-      expMonth: 0,
-      expYear: 0,
-      cvc: ""
+      expMonth,
+      expYear,
+      cvc: "",
+      stripeKey: "pk_test_arr20NMmOPBNJWZCNBvTZib8"
     };
   },
   computed: {
@@ -132,30 +133,48 @@ export default {
   },
   methods: {
     onConfirmClick() {
-      const cardInfo = {
-        cardNumber: this.cardNumber,
-        expMonth: this.expMonth,
-        expYear: this.expYear,
-        cvc: this.cvc
+      // Generate stripe token
+      let card = {
+        number: this.cardNumber,
+        cvc: this.cvc,
+        exp_month: this.expMonth,
+        exp_year: this.expYear
       };
+      window.Stripe.setPublishableKey("pk_test_arr20NMmOPBNJWZCNBvTZib8");
+      window.Stripe.createToken(card, this.stripeResponseHandler);
+    },
+    stripeResponseHandler(status, response) {
+      if (response.error) {
+        console.error(response.error);
+      } else {
+        // token to create a charge on our server
+        var token_from_stripe = response.id;
+        // Setting card info
+        const cardInfo = {
+          cardNumber: this.cardNumber,
+          expMonth: this.expMonth,
+          expYear: this.expYear,
+          cvc: this.cvc
+        };
+        // Listed product id and quantity for checkout
+        let products = [];
 
-      let products = [];
-
-      this.items.map(item=>{
-        let tempProduct = {
-          productId : item.productId,
-          quantity: item.quantity,
-          attributes: item.attributes 
-        }
-        products.push(tempProduct);
-      })
-
-    let order = {
-      cardInfo: cardInfo,
-      products: products
-    }
-
-      console.log(order);
+        this.items.map(item => {
+          let tempProduct = {
+            productId: item.productId,
+            quantity: item.quantity,
+            attributes: item.attributes
+          };
+          products.push(tempProduct);
+        });
+        // Plase order
+        let order = {
+          cardInfo: cardInfo,
+          stripeToken: token_from_stripe,
+          products: products
+        };
+        this.$store.dispatch("checkout/setCheckout", order);
+      }
     }
   }
 };

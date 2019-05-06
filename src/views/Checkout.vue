@@ -171,6 +171,8 @@
                         class="custom-control-input"
                         checked=""
                         required=""
+                        value="credit"
+                        @change="paymentMethod"
                       />
                       <label class="custom-control-label" for="credit"
                         >Credit card</label
@@ -183,6 +185,8 @@
                         name="paymentMethod"
                         type="radio"
                         class="custom-control-input"
+                        value="paypal"
+                        @change="paymentMethod"
                         required=""
                       />
                       <label class="custom-control-label" for="paypal"
@@ -195,6 +199,8 @@
                         name="paymentMethod"
                         type="radio"
                         class="custom-control-input"
+                        value="cod"
+                        @change="paymentMethod"
                         required=""
                       />
                       <label class="custom-control-label" for="debit"
@@ -207,6 +213,7 @@
                   <button
                     class="btn btn-primary btn-lg btn-block"
                     type="submit"
+                    @click="onCheckoutClick"
                   >
                     Continue to checkout
                   </button>
@@ -223,12 +230,18 @@
 <script>
 import { mapGetters } from "vuex";
 import { ucfirst } from "../utils/helpers";
+import router from "../router";
 // @ is an alias to /src
 import AppLayout from "@/components/layouts/AppLayout.vue";
 export default {
   name: "home",
   components: {
-    AppLayout,
+    AppLayout
+  },
+  data() {
+    return {
+      paymentType: "credit"
+    };
   },
   computed: {
     ...mapGetters({
@@ -247,7 +260,16 @@ export default {
       return total;
     }
   },
-  methods: {},
+  methods: {
+    paymentMethod(pm) {
+      this.paymentType = pm.target.value;
+    },
+    onCheckoutClick() {
+      if (this.paymentType == "credit") {
+        router.push({ name: "payment" });
+      }
+    }
+  },
   filters: {
     ucfirst: function(value) {
       return ucfirst(value);

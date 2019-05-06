@@ -8,6 +8,7 @@ import ProductByCategory from "./views/ProductByCategory.vue";
 import ProductBySubCategory from "./views/ProductBySubCategory.vue";
 import Cart from "./views/Cart.vue";
 import Checkout from "./views/Checkout.vue";
+import Payment from "./views/Payment.vue";
 
 Vue.use(Router);
 
@@ -57,6 +58,14 @@ const router = new Router({
       path: "/checkout",
       name: "checkout",
       component: Checkout,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/payment",
+      name: "payment",
+      component: Payment,
       meta: {
         requiresAuth: true
       }

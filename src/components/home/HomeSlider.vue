@@ -15,19 +15,19 @@
     >
       <!-- Text slides with image -->
       <b-carousel-slide
-        caption="First slide"
-        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-        img-src="https://picsum.photos/1024/480/?image=52"
+        caption="New Arrival"
+        text="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        img-src="https://picsum.photos/1024/480/?image=1"
       ></b-carousel-slide>
 
       <!-- Slides with custom text -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
+      <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=2">
         <h1>Hello world!</h1>
       </b-carousel-slide>
 
       <!-- Slides with image only -->
       <b-carousel-slide
-        img-src="https://picsum.photos/1024/480/?image=58"
+        img-src="https://picsum.photos/1024/480/?image=3"
       ></b-carousel-slide>
 
       <!-- Slides with img slot -->
@@ -38,18 +38,9 @@
           class="d-block img-fluid w-100"
           width="1024"
           height="480"
-          src="https://picsum.photos/1024/480/?image=55"
+          src="https://picsum.photos/1024/480/?image=4"
           alt="image slot"
         />
-      </b-carousel-slide>
-
-      <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-      <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          eros felis, tincidunt a tincidunt eget, convallis vel est. Ut
-          pellentesque ut lacus vel interdum.
-        </p>
       </b-carousel-slide>
     </b-carousel>
   </div>

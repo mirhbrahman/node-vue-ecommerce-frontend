@@ -1,4 +1,5 @@
 # ecom-front
+[Live Demo](https://alphaecom.herokuapp.com)
 
 ## Project setup
 ```
